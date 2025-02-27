@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สำหรับที่รักของฉัน 💖</title>
+    
+    <!-- เพิ่ม Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+        
+        button {
+            font-family: 'Kanit', sans-serif;
+            background: #ff6f91;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        button:hover {
+            background: #ff477e;
+        }
+        
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Pop-up Style */
+        .popup {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: white;
+            color: #ff6f91;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .popup.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff477e;
+            animation: floatUp 2s ease-in-out forwards;
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>FOR P NUEY</h1>
+    <button id="loveButton">กดที่นี่ 💌</button>
+    
+    <script>
+        const loveButton = document.getElementById("loveButton");
+        
+        const messages = [
+            "Happy Valentine's Day, P'Nuey",
+            "This is something I really wanted to give you because I hadn't given you anything before",
+            "It might not be beautiful since I used AI to help, because if I made it myself, it might not turn out well",
+            "But at least I had the idea and let AI assist me a bit",
+            "I don't know if you like it or not",
+            "But I really want to give it to you",
+            "I love you so, so, so much",
+            "Luv u Babee"
+        ];
+        
+        let currentMessageIndex = 0;
+        let isDisplaying = false;
+        
+        function showLoveMessage() {
+            if (isDisplaying) return;
+            isDisplaying = true;
+            
+            function displayMessage(index) {
+                if (index >= messages.length) {
+                    showHearts();
+                    currentMessageIndex = 0;
+                    isDisplaying = false;
+                    return;
+                }
+                
+                const popup = document.createElement("div");
+                popup.classList.add("popup");
+                popup.textContent = messages[index];
+                document.body.appendChild(popup);
+                
+                setTimeout(() => popup.classList.add("show"), 100);
+                
+                setTimeout(() => {
+                    popup.classList.remove("show");
+                    setTimeout(() => {
+                        popup.remove();
+                        displayMessage(index + 1);
+                    }, 500);
+                }, 2000);
+            }
+            
+            displayMessage(currentMessageIndex);
+        }
+        
+        function showHearts() {
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement("div");
+                    heart.classList.add("heart");
+                    heart.innerHTML = "❤️";
+                    heart.style.left = Math.random() * 100 + "vw";
+                    heart.style.top = "50%";
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 200);
+            }
+        }
+        
+        loveButton.addEventListener("click", showLoveMessage);
+    </script>
+</body>
+</html>
